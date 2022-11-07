@@ -1,0 +1,588 @@
+/* Reset CSS */
+* {
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+ }
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+} 
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 46px;
+    background-color: #000;
+    z-index: 1;
+}
+
+#nav {
+    display: inline-block;
+    padding-left: auto;
+    margin-left: 7%;
+}
+
+
+#header .nav-logo img {
+    position: absolute;
+    width: 50px;
+    margin-top: 6px;
+    margin-left: 6px;
+}
+
+#nav li {
+    display: inline-block;
+    position: relative;
+}
+
+#nav li a {
+    color: #fff;
+    text-decoration: none;
+    line-height: 46px;
+    padding: 0 12px;
+    display: inline-block;
+    min-width: 160px;
+    /* text-align: center; */
+}
+
+.set-minwidth {
+    min-width: 110px !important;
+}
+
+#nav .subnav-product li a,
+#nav .subnav-premium li a {
+    padding: 0 10px 0 12px;
+}
+
+#nav .nav-arrow-down {
+    font-size: 10px;
+}
+
+#nav .nav-arrow-right {
+    font-size: 10px;
+    float: right;
+    line-height: 46px;
+}
+
+/* Create border menu lv1 lv2 */
+#nav .subnav-product li > a,
+#nav .subnav-premium li > a {
+    border-bottom: 1px solid rgb(120, 120, 120);
+    background-color: #000;
+}
+
+/* Uppercase menu lv0 */
+#nav > li > a {
+    text-transform: uppercase;
+}
+
+/* Create hover effect */
+#nav > li:hover > a,
+#nav .subnav-product li:hover > a,
+#nav .subnav-premium li:hover > a {
+    color: rgb(214, 14, 14);
+}
+
+/* Menu lv1 */
+#nav .subnav-product, .subnav-premium {
+    display: none;
+    position: absolute;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Show hover effect menu lv1 */
+#nav li:hover .subnav-product, 
+#nav li:hover .subnav-premium {
+    display: block;
+}
+
+/* Menu lv2 */
+#nav .subnav-product .subnav-product-top, 
+#nav .subnav-product .subnav-product-bottom {
+    display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 110px;
+}
+#nav .subnav-premium .subnav-premium-top, 
+#nav .subnav-premium .subnav-premium-bottom {
+    display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 160px;
+}
+
+/* Show hover effect menu lv2 */
+#nav .subnav-product li:hover .subnav-product-top, 
+#nav .subnav-product li:hover .subnav-product-bottom,
+#nav .subnav-premium li:hover .subnav-premium-top, 
+#nav .subnav-premium li:hover .subnav-premium-bottom {
+    display: block;
+}
+
+#header .search-btn,
+#header .btn-account,
+#header .btn-bag {
+    float: right;
+}
+
+#header .search-icon,
+#header .icon-account,
+#header .icon-bag {
+    color: #fff;
+    font-size: 20px;
+    line-height: 46px;
+    padding: 0 20px;
+}
+
+#header .search-icon:hover,
+#header .icon-account:hover,
+#header .icon-bag:hover {
+    color: rgb(214, 14, 14);
+    cursor: pointer;
+}
+
+/* Begin Login From */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap'); */
+
+/* *
+{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+} */
+/* body 
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	flex-direction: column;
+	background: #23242a;
+} */
+.box 
+{
+	position: relative;
+	width: 380px;
+	height: 420px;
+	background: #1c1c1c;
+	border-radius: 8px;
+	overflow: hidden;
+}
+.box::before 
+{
+	content: '';
+	z-index: 1;
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 380px;
+	height: 420px;
+	transform-origin: bottom right;
+	background: linear-gradient(0deg,transparent,#45f3ff,#45f3ff);
+	animation: animate 6s linear infinite;
+}
+.box::after 
+{
+	content: '';
+	z-index: 1;
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 380px;
+	height: 420px;
+	transform-origin: bottom right;
+	background: linear-gradient(0deg,transparent,#45f3ff,#45f3ff);
+	animation: animate 6s linear infinite;
+	animation-delay: -3s;
+}
+@keyframes animate 
+{
+	0%
+	{
+		transform: rotate(0deg);
+	}
+	100%
+	{
+		transform: rotate(360deg);
+	}
+}
+form 
+{
+	position: absolute;
+	inset: 2px;
+	background: #28292d;
+	padding: 50px 40px;
+	border-radius: 8px;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+}
+h2 
+{
+	color: #45f3ff;
+	font-weight: 500;
+	text-align: center;
+	letter-spacing: 0.1em;
+}
+.inputBox 
+{
+	position: relative;
+	width: 300px;
+	margin-top: 35px;
+}
+.inputBox input 
+{
+	position: relative;
+	width: 100%;
+	padding: 20px 10px 10px;
+	background: transparent;
+	outline: none;
+	box-shadow: none;
+	border: none;
+	color: #23242a;
+	font-size: 1em;
+	letter-spacing: 0.05em;
+	transition: 0.5s;
+	z-index: 10;
+}
+.inputBox span 
+{
+	position: absolute;
+	left: 0;
+	padding: 20px 0px 10px;
+	pointer-events: none;
+	font-size: 1em;
+	color: #8f8f8f;
+	letter-spacing: 0.05em;
+	transition: 0.5s;
+}
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span 
+{
+	color: #45f3ff;
+	transform: translateX(0px) translateY(-34px);
+	font-size: 0.75em;
+}
+.inputBox i 
+{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2px;
+	background: #45f3ff;
+	border-radius: 4px;
+	overflow: hidden;
+	transition: 0.5s;
+	pointer-events: none;
+	z-index: 9;
+}
+.inputBox input:valid ~ i,
+.inputBox input:focus ~ i 
+{
+	height: 44px;
+}
+.links 
+{
+	display: flex;
+	justify-content: space-between;
+}
+.links a 
+{
+	margin: 10px 0;
+	font-size: 0.75em;
+	color: #8f8f8f;
+	text-decoration: beige;
+}
+.links a:hover, 
+.links a:nth-child(2)
+{
+	color: #45f3ff;
+}
+input[type="submit"]
+{
+	border: none;
+	outline: none;
+	padding: 11px 25px;
+	background: #45f3ff;
+	cursor: pointer;
+	border-radius: 4px;
+	font-weight: 600;
+	width: 100px;
+	margin-top: 10px;
+}
+input[type="submit"]:active 
+{
+	opacity: 0.8;
+}
+
+/* End Login From */
+
+#slide {
+    position: relative;
+    margin-top: 46px;
+    padding-top: 50%;
+    background: url(/assets/slider/slider_1.webp) top center / cover no-repeat;
+}
+
+#slide .text-content {
+    position: absolute;
+    color: #fff;
+    bottom: 40px;
+    /* left: 50%;
+    transform: translateX(-50%); */
+    width: 100%;
+    text-align: center;
+}
+
+/* #content {
+    height: 2000px;
+    background-color: #333;
+} */
+
+#content {
+}
+
+#content .content-section {
+    width: 1200px;
+    max-width: 100%;
+    padding: 60px 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#content .section-heading {
+    text-align: center;
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+#content .product-list {
+    overflow: hidden;
+}
+
+#content .product-item {
+    float: left;
+    width: 25%;
+    text-align: center;
+    font-family: 'SVN-Gotham';
+    line-height: 24px;
+    padding: 0 10px;
+}
+
+#content .product-img {
+    width: 250px;
+    height: 350px;
+}
+
+#content .product-img:hover {
+    opacity: 0.6;
+}
+
+#content .product-type {
+    font-size: 10px;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+#content .product-name {
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#content .btn-buynow {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 100;
+    color: #fff;
+    background-color: #000;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-top: 10px;
+    padding: 0 10px;
+    border: none;
+}
+
+#content .btn-buynow:hover {
+    background-color: rgb(225, 225, 225);
+    color: #000;
+    cursor: pointer;
+}
+
+#content .product-price {
+    font-size: 20px;
+}
+
+#content .contact-list {
+    margin-top: 40px;
+}
+
+#content .contact-list .contact-item {
+    float: left;
+}
+
+#content .contact-item {
+    width: 55%;
+    line-height: 1.6;
+}
+
+#content .contact-item p {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#content i[class*="ti-"] {
+    width: 30px;
+    display: inline-block;
+}
+
+#content .receive-noti-list p {
+    font-size: 14px;
+    opacity: 0.7;
+    line-height: 2.5;
+}
+
+#content .receive-noti-input {
+    padding: 5px;
+    background-color: rgb(217, 212, 212);
+}
+
+#content .btn-receive-noti {
+    /* display: inline-block; */
+    font-size: 15px;
+    font-weight: 100;
+    color: #fff;
+    background-color: #000;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 4px 10px;
+    border: none;
+}
+
+#content .btn-receive-noti:hover {
+    background-color: rgb(225, 225, 225);
+    color: #000;
+    cursor: pointer;
+}
+
+#footed {
+    padding: 30px 16px;
+    text-align: center;
+}
+
+#footed .social-list {
+    font-size: 24px; 
+}
+
+#footed .social-list a {
+    color: rgba(0, 0, 0, 0.6);
+    text-decoration: none;
+}
+
+#footed .social-list a:hover {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+#footed .copyright {
+    margin-top: 15px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal .modal-container {
+    position: relative;
+    background-color: #fff;
+    width: 800px;
+    min-height: 250px;
+    max-width: calc(100% - 32px);
+    animation: modalShow ease 0.5s;
+}
+
+.modal .modal-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #fff;
+    padding: 10px 10px;
+    opacity: 0.7;
+}
+
+.modal .modal-close:hover {
+    opacity: 1;
+}
+
+.modal .modal-header {
+    width: 100%;
+    color: #fff;
+    background-color: #000;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+
+.modal .table-buynow {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.modal .table-buynow .table-buynow-header {
+    border: 1px #000;
+    background-color: rgb(225, 225, 225);
+}
+
+.modal .btn-payment {
+    width: 50%;
+    background-color: #000;
+    text-align: center;
+    padding: 10px 20px;
+    margin: 100px auto 0 auto;
+}
+
+.modal .btn-payment-orders {
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.modal .btn-payment:hover {
+    background-color: #ff5000;
+    cursor: pointer;
+}
+
+@keyframes modalShow {
+    from {
+        opacity: 0.5;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
