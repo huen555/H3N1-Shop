@@ -30,7 +30,7 @@
                         </a>
                         <ul class="subnav-product">
                             <li>
-                                <a href="#" class="set-minwidth product-fetch-api">
+                                <a href="#" class="set-minwidth">
                                     Tops
                                     <i class="nav-arrow-right ti-angle-right"></i>
                                 </a>
@@ -96,48 +96,17 @@
                         </div>
                     </a>
                     <!-- Cart -->
-                    <a title="Giỏ hàng" href="cart.html">
-                        <div class="btn-cart">
-                            <i class="icon-cart ti-shopping-cart"></i>
+                    <a title="Giỏ hàng" href="#">
+                        <div class="btn-bag">
+                            <i class="icon-bag ti-bag"></i>
                         </div>
                     </a>
                 </div>
-
-                <!--  Button search -->
-                <!-- <div class="search-btn">
-                <input type="text" id="filter-input" class="filter-input" placeholder="Tìm kiếm">
-                <i class="search-icon ti-search"></i>
-            </div> -->
             </div>
-
-            <!-- <div id="slide"> -->
-            <!-- <div class="text-content">
-                <h2 class="text-heading">Hung Nguyen</h2>
-                <div class="text-description">dep trai</div>
-            </div> -->
-            <!-- </div> -->
-
             <div id="content">
                 <div class="content-section">
-                    <h2 class="section-heading">Tất cả sản phẩm</h2>
-                    <!-- filter -->
-                    <div class="filter">
-                        <label for="">Sắp xếp</label>
-                        <select name="choose-filter-type" class="choose-filter-type">
-                            <!-- <option value="low-to-high">Price: low to high</option>
-                        <option value="high-to-low">Price: high to low</option> -->
-                            <option value="all-product" selected="selected">Tất cả sản phẩm</option>
-                            <option value="low-to-high">Giá: thấp đến cao</option>
-                            <option value="high-to-low">Giá: cao đến thấp</option>
-                        </select>
-                        <!-- <div class="search-btn"> -->
-                        <input type="text" id="filter-input" class="filter-input" placeholder="Tìm kiếm" />
-                        <i class="search-icon ti-search"></i>
-                        <!-- </div> -->
-                    </div>
-
-                    <div class="product-list-main">
-                        <!-- <div class="product-item">
+                    <!-- <div class="product-list-main"> -->
+                    <!-- <div class="product-item">
                         <img src="${product.image}" alt="product 4" class="product-img">
                         <p class="product-type">${product.productType}</p>
                         <p class="product-name">${product.productName}</p>
@@ -145,13 +114,10 @@
                         <button href="" class="btn-detail">Chi tiết</button>
                         <button href="" class="btn-add-to-cart">Thêm vào giỏ hàng</button>
                     </div> -->
-                        <!-- post product by JSON -->
-                    </div>
-                    <div class="break-page">
-                        <button class="btn-global btn-back-page">back</button>
-                        <input type="button" value="1" class="first-page btn-global" name="break-page" />
-                        <input type="button" value="2" class="second-page btn-global" name="break-page" />
-                        <button class="btn-global btn-next-page">next</button>
+                    <!-- post product by JSON -->
+                    <!-- </div> -->
+                    <div class="product-details">
+                        <img src="${product.image}" alt="product 4" class="product-img" />
                     </div>
                 </div>
                 <div class="content-section">
@@ -182,62 +148,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- modal quick view -->
-        <!-- <div class="modal js-modal">
-        <div class="modal-container js-modal-container">
-            <div class="modal-close js-btn-close">
-                <button class="ti-close"></button>
-            </div>
-            <div class="modal-header">
-                Thông tin thanh toán
-            </div>
-            <div class="modal-body">
-                <table class="table-buynow">
-                    <thead class="table-buynow-header">
-                        <th>Sản phẩm</th>
-                        <th>Đơn giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                    </thead>
-                    <tbody class="table-buynow-body">
-                        <tr>
-                            <td>Miami vibes T-shirt / black pink dominant</td>
-                            <td>370000đ</td>
-                            <td>1</td>
-                            <td>370000đ</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="btn-payment">
-                    <a href="" class="btn-payment-orders js-payment-order">Thanh toán đơn hàng</a>
-                </div>
-            </div>
-        </div>
-    </div> -->
         <script src="./main.js"></script>
-        <!-- <script>
-        const btnBuys = document.querySelectorAll('.js-buynow')
-        const modal = document.querySelector('.js-modal')
-        const btnCloseModal = document.querySelector('.js-btn-close')
-        const modalContainer = document.querySelector('.js-modal-container')
-        function showBuyNow() {
-            modal.classList.add('open')
-        }
-
-        function hideBuyNow() {
-            modal.classList.remove('open')
-        }
-
-        for (const btnBuy of btnBuys) {
-            btnBuy.addEventListener('click', showBuyNow)
-        }
-
-        btnCloseModal.addEventListener('click', hideBuyNow)
-        modal.addEventListener('click', hideBuyNow)
-        modalContainer.addEventListener('click', function (event) {
-            event.stopPropagation()
-        })
-    </script> -->
     </body>
 </html>

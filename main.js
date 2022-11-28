@@ -1,12 +1,14 @@
 let apiUser = 'http://localhost:3000/user';
 let apiProductList = 'http://localhost:3000/productList';
+let apiProductListTop = 'http://localhost:3000/productList?';
 let apiProductListPriceAsc = 'http://localhost:3000/productList?_sort=productPrice&_order=asc';
 let apiProductListPriceDesc = 'http://localhost:3000/productList?_sort=productPrice&_order=desc';
 let apiProductListNew = 'http://localhost:3000/productListNew';
+let apiProductDetails = 'http://localhost:3000/productList?id=';
 
 // Login, SignUp
 function login() {
-    getUser(handleLogin);
+    getUser(handleLogin1);
 }
 function getUser(callback) {
     fetch(apiUser).then(function (res) {
@@ -16,32 +18,65 @@ function getUser(callback) {
             .catch((err) => alert('Lỗi Server!'));
     });
 }
+// fetch(apiUser).then(function (res) {
+//     return res
+//         .json()
+//         .then((data) => console.log(data[]))
+//         .catch((err) => alert('Lỗi Server!'));
+// });
+function handleLogin1(data) {
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    let checkLogin = data.some((data) => {
+        return data.username == username && data.password == password;
+        // return true;
+    });
+
+    console.log(checkLogin);
+    if (checkLogin) {
+        alert('Đăng nhập thành công, quay về trang chủ!');
+        localStorage.setItem('isLogin', 1);
+        window.location.href = '/index.html';
+    } else {
+        alert('Đăng nhập thất bại, nhập sai tên đăng nhập hoặc mật khẩu!');
+    }
+}
+
 function handleLogin(data) {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     let checkEmpty = false;
     let checkEmptyFlag = 0;
-    // let checkLogin = false;
+    let checkLogin = false;
     // data.forEach((data) => {
     //     if (data.username == username && data.password == password) {
     //         checkLogin = true;
     //     }
     // });
-    let checkLogin = data.some((data) => {
-        if (username === '' && password === '') {
-            checkEmpty = true;
-        } else if (username === '') {
-            checkEmpty = true;
-            checkEmptyFlag = 1;
-        } else if (password === '') {
-            checkEmpty = true;
-            checkEmptyFlag = 2;
-        }
-        return data.username === username && data.password === password;
-    });
+    if (username === '' && password === '') {
+        checkEmpty = true;
+    } else if (username === '') {
+        checkEmpty = true;
+        checkEmptyFlag = 1;
+    } else if (password === '') {
+        checkEmpty = true;
+        checkEmptyFlag = 2;
+    } else {
+        checkLogin = data.some((data) => {
+            return data.username == username && data.password == password;
+        });
+        // data.forEach((data) => {
+        //     if (data.username == username && data.password == password) {
+        //         checkLogin = true;
+        //     }
+        // });
+    }
+
+    console.log(checkLogin);
     if (!checkEmpty) {
         if (checkLogin) {
             alert('Đăng nhập thành công, quay về trang chủ!');
+            localStorage.setItem('isLogin', 1);
             window.location.href = '/index.html';
         } else {
             alert('Đăng nhập thất bại, nhập sai tên đăng nhập hoặc mật khẩu!');
@@ -134,30 +169,9 @@ fetch(apiProductListNew)
     .then((res) => res.json())
     .then((json) => {
         for (let value of json) {
-            addElement(gridProductNew, value);
+            addElements(gridProductNew, value);
         }
     });
-
-function addElement(appendIn, value) {
-    let div = document.createElement('div');
-    div.className = 'product-item';
-
-    let { image, productType, productName, productPrice } = value;
-    priceConvert = productPrice.toLocaleString('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
-    });
-    div.innerHTML = `
-            <img src="${image}" alt="" class="product-img" title="${productName}">
-            <p class="product-type">${productType}</p>
-            <p class="product-name">${productName}</p>
-            <p class="product-price">${priceConvert}</p>
-            <button href="" class="btn-buynow js-buynow">Chi tiết</button>
-    `;
-    if (appendIn) {
-        appendIn.appendChild(div);
-    }
-}
 
 // Render products by JSON
 let gridProductMain = document.querySelector('.product-list-main');
@@ -165,99 +179,188 @@ let chooseFilterType = document.querySelector('.choose-filter-type');
 let filterInput = document.getElementById('filter-input');
 let btnSearch = document.querySelector('.search-icon');
 
+//break page
+let breakPageFlag = 1;
+let breakPage = document.querySelector('input[name="break-page"]');
+let breakPageFormat = `?_page=${breakPageFlag}&_limit=8`;
+
+document.addEventListener('click', (e) => {
+    if (e.target.matches("input[name='break-page']")) {
+        breakPageFlag = e.target.value;
+        breakPageFormat = `?_page=${breakPageFlag}&_limit=8`;
+        // gridProductMain.innerHTML = '';
+        // fetch(apiProductList + breakPageFormat)
+        //     .then((res) => res.json())
+        //     .then((json) => {
+        //         for (let value of json) {
+        //             addElements(gridProductMain, value);
+        //         }
+        //     });
+    }
+});
+
 // all product
+// fetch(apiProductList)
+// let productFetchAPI = document.querySelector('#nav .product-fetch-api');
+// if (productFetchAPI) {
+//     productFetchAPI.addEventListener('click', (e) => {
+//         // alert('asdasd');
+//         console.log('asdasdad');
+//         fetch(apiProductList)
+//             .then((res) => res.json())
+//             .then((json) => {
+//                 for (let value of json) {
+//                     addElements(gridProductMain, value);
+//                 }
+//             });
+//     });
+// }
 fetch(apiProductList)
     .then((res) => res.json())
     .then((json) => {
         for (let value of json) {
-            addElement(gridProductMain, value);
+            addElements(gridProductMain, value);
         }
     });
 
-function testAlert() {
-    alert('test');
+// fetch(apiProductList)
+//     .then((res) => res.json())
+//     .then((json) => {
+//         for (let value of json) {
+//             addElements(gridProductMain, value);
+//         }
+//     });
+
+if (chooseFilterType) {
+    chooseFilterType.addEventListener('change', (e) => {
+        gridProductMain.innerHTML = '';
+        // back all products
+        if (chooseFilterType.value === 'all-product') {
+            fetch(apiProductList)
+                .then((res) => res.json())
+                .then((json) => {
+                    for (let value of json) {
+                        addElements(gridProductMain, value);
+                        let filterValue = removeAccents(filterInput.value.toUpperCase());
+                        let item = gridProductMain.querySelectorAll('.product-item');
+
+                        for (let i = 0; i < item.length; i++) {
+                            let productType = item[i].querySelector('.product-type');
+                            let productName = item[i].querySelector('.product-name');
+
+                            if (removeAccents(productType.innerHTML).toUpperCase().indexOf(filterValue) > -1 || removeAccents(productName.innerHTML).toUpperCase().indexOf(filterValue) > -1) {
+                                item[i].style.display = 'initial';
+                            } else {
+                                item[i].style.display = 'none';
+                            }
+                        }
+                    }
+                });
+        }
+        // filter products by low-to-high price
+        if (chooseFilterType.value === 'low-to-high') {
+            fetch(apiProductListPriceAsc)
+                .then((res) => res.json())
+                .then((json) => {
+                    for (let value of json) {
+                        addElements(gridProductMain, value);
+                        let filterValue = removeAccents(filterInput.value.toUpperCase());
+                        let item = gridProductMain.querySelectorAll('.product-item');
+
+                        for (let i = 0; i < item.length; i++) {
+                            let productType = item[i].querySelector('.product-type');
+                            let productName = item[i].querySelector('.product-name');
+
+                            if (removeAccents(productType.innerHTML).toUpperCase().indexOf(filterValue) > -1 || removeAccents(productName.innerHTML).toUpperCase().indexOf(filterValue) > -1) {
+                                item[i].style.display = 'initial';
+                            } else {
+                                item[i].style.display = 'none';
+                            }
+                        }
+                        // console.log(item);
+                    }
+                });
+        }
+        // filter products by high-to-low price
+        if (chooseFilterType.value === 'high-to-low') {
+            fetch(apiProductListPriceDesc)
+                .then((res) => res.json())
+                .then((json) => {
+                    for (let value of json) {
+                        addElements(gridProductMain, value);
+                        let filterValue = removeAccents(filterInput.value.toUpperCase());
+                        let item = gridProductMain.querySelectorAll('.product-item');
+
+                        for (let i = 0; i < item.length; i++) {
+                            let productType = item[i].querySelector('.product-type');
+                            let productName = item[i].querySelector('.product-name');
+
+                            if (removeAccents(productType.innerHTML).toUpperCase().indexOf(filterValue) > -1 || removeAccents(productName.innerHTML).toUpperCase().indexOf(filterValue) > -1) {
+                                item[i].style.display = 'initial';
+                            } else {
+                                item[i].style.display = 'none';
+                            }
+                        }
+                    }
+                });
+        }
+    });
 }
 
-chooseFilterType.addEventListener('change', (e) => {
-    gridProductMain.innerHTML = '';
-    // back all products
-    if (chooseFilterType.value === 'all-product') {
-        fetch(apiProductList)
-            .then((res) => res.json())
-            .then((json) => {
-                for (let value of json) {
-                    addElement(gridProductMain, value);
-                    let filterValue = removeAccents(filterInput.value.toUpperCase());
-                    let item = gridProductMain.querySelectorAll('.product-item');
+//format number -> currency
+function formatNumber(num) {
+    return num.toLocaleString('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+}
 
-                    for (let i = 0; i < item.length; i++) {
-                        let productType = item[i].querySelector('.product-type');
-                        let productName = item[i].querySelector('.product-name');
+// localStorage.setItem('localStorageAllItemPrice', 0);
 
-                        if (removeAccents(productType.innerHTML).toUpperCase().indexOf(filterValue) > -1 || removeAccents(productName.innerHTML).toUpperCase().indexOf(filterValue) > -1) {
-                            item[i].style.display = 'initial';
-                        } else {
-                            item[i].style.display = 'none';
-                        }
-                    }
-                }
-            });
+function addItemOnLocalStorage(productID, image, productType, productName, productPrice, total) {
+    if (localStorage.getItem('isLogin') === null || localStorage.getItem('isLogin') === 0) {
+        alert('Đăng nhập để mua sản phẩm!');
+    } else {
+        alert(`Thêm thành công 1 ${productType} ${productName} vào giỏ hàng!`);
+        let productListCart = getProductListCart();
+        let isExist = false;
+
+        for (let i = 0; i < productListCart.length; i++) {
+            if (productListCart[i].productID == productID) {
+                productListCart[i].quantity += 1;
+                productListCart[i].total += productPrice;
+                isExist = true;
+                localStorage.setItem('localStorageAllItemPrice', parseInt(localStorage.getItem('localStorageAllItemPrice')) + productPrice);
+            }
+        }
+        // let priceConvert = productPrice.toLocaleString('vi-VN', {
+        //     style: 'currency',
+        //     currency: 'VND',
+        // });
+        if (isExist == false) {
+            let cartItem = setItemProperties(productID, image, productName, productPrice, 1, productPrice);
+            productListCart.push(cartItem);
+            if (localStorage.getItem('localStorageAllItemPrice')) {
+                localStorage.setItem('localStorageAllItemPrice', parseInt(localStorage.getItem('localStorageAllItemPrice')) + productPrice);
+            } else {
+                localStorage.setItem('localStorageAllItemPrice', localStorage.getItem('localStorageAllItemPrice') + productPrice);
+            }
+        }
+
+        saveProductListCartToLocalStorage(productListCart);
     }
-    // filter products by low-to-high price
-    if (chooseFilterType.value === 'low-to-high') {
-        fetch(apiProductListPriceAsc)
-            .then((res) => res.json())
-            .then((json) => {
-                for (let value of json) {
-                    addElement(gridProductMain, value);
-                    let filterValue = removeAccents(filterInput.value.toUpperCase());
-                    let item = gridProductMain.querySelectorAll('.product-item');
+}
 
-                    for (let i = 0; i < item.length; i++) {
-                        let productType = item[i].querySelector('.product-type');
-                        let productName = item[i].querySelector('.product-name');
+// add elements
+// <button onclick="location.href='product-details.html'" class="btn-buynow js-buynow">Chi tiết</button>
+const btnNext = document.querySelector('#content .btn-next-page');
 
-                        if (removeAccents(productType.innerHTML).toUpperCase().indexOf(filterValue) > -1 || removeAccents(productName.innerHTML).toUpperCase().indexOf(filterValue) > -1) {
-                            item[i].style.display = 'initial';
-                        } else {
-                            item[i].style.display = 'none';
-                        }
-                    }
-                    console.log(item);
-                }
-            });
-    }
-    // filter products by high-to-low price
-    if (chooseFilterType.value === 'high-to-low') {
-        fetch(apiProductListPriceDesc)
-            .then((res) => res.json())
-            .then((json) => {
-                for (let value of json) {
-                    addElement(gridProductMain, value);
-                    let filterValue = removeAccents(filterInput.value.toUpperCase());
-                    let item = gridProductMain.querySelectorAll('.product-item');
-
-                    for (let i = 0; i < item.length; i++) {
-                        let productType = item[i].querySelector('.product-type');
-                        let productName = item[i].querySelector('.product-name');
-
-                        if (removeAccents(productType.innerHTML).toUpperCase().indexOf(filterValue) > -1 || removeAccents(productName.innerHTML).toUpperCase().indexOf(filterValue) > -1) {
-                            item[i].style.display = 'initial';
-                        } else {
-                            item[i].style.display = 'none';
-                        }
-                    }
-                }
-            });
-    }
-});
-
-function addElement(appendIn, value) {
+function addElements(appendIn, value) {
     let div = document.createElement('div');
     div.className = 'product-item';
 
-    let { image, productType, productName, productPrice } = value;
-    priceConvert = productPrice.toLocaleString('vi-VN', {
+    let { id, image, productType, productName, productPrice } = value;
+    let priceConvert = productPrice.toLocaleString('vi-VN', {
         style: 'currency',
         currency: 'VND',
     });
@@ -266,31 +369,12 @@ function addElement(appendIn, value) {
             <p class="product-type">${productType}</p>
             <p class="product-name">${productName}</p>
             <p class="product-price">${priceConvert}</p>
-            <button onclick="testAlert()" class="btn-buynow js-buynow">Chi tiết</button>
+            <button onclick="addItemOnLocalStorage('${id}','${image}','${productType}' , '${productName}', ${productPrice}, 0)" class="btn-buynow js-buynow">Thêm vào giỏ hàng</button>
     `;
     if (appendIn) {
         appendIn.appendChild(div);
     }
 }
-
-// submit login
-// let formLogin = document.querySelector('.form-login');
-// if (formLogin) {
-//     formLogin.addEventListener('submit', (e) => {
-//         e.preventDefault();
-//         alert('Đăng nhập thành công!');
-//         window.location = '/index.html';
-//     });
-// }
-
-// submit signup
-// let formSignUp = document.querySelector('.form-signup');
-// if (formSignUp) {
-//     formSignUp.addEventListener('submit', (e) => {
-//         //   e.preventDefault();
-//         alert('Đăng ký thành công!');
-//     });
-// }
 
 // filter input
 if (filterInput) {
@@ -343,7 +427,7 @@ function removeAccents(str) {
         .replace(/Đ/g, 'D');
 }
 
-// add to cart
+// Add to cart
 // let btnAddToCart = document.querySelectorAll(".btnAddToCart")
 // console.log(btnAddToCart)
 
@@ -352,3 +436,191 @@ function removeAccents(str) {
 //         alert("test");
 //     })
 // }
+let localStorageCartItemKey = 'listCartItem';
+
+function setItemProperties(productID, image, productName, productPrice, quantity, total) {
+    let cartItem = new Object();
+    cartItem.productID = productID;
+    cartItem.image = image;
+    cartItem.productName = productName;
+    cartItem.productPrice = productPrice;
+    cartItem.quantity = quantity;
+    cartItem.total = total;
+    return cartItem;
+}
+
+function getProductListCart() {
+    let productListCart = new Array();
+    let productListCartData = localStorage.getItem(localStorageCartItemKey);
+
+    if (productListCartData != null) {
+        productListCart = JSON.parse(productListCartData);
+    }
+
+    return productListCart;
+}
+
+function saveProductListCartToLocalStorage(productListCart) {
+    let productListCartData = JSON.stringify(productListCart);
+    localStorage.setItem(localStorageCartItemKey, productListCartData);
+}
+
+//Render Cart Item
+function getItemInLocalStorage(item) {
+    let listCart = document.querySelector('#cart-container table tbody');
+    let headerListCart = document.querySelector('#cart-container table thead');
+    // <input class="w-25 pl-1" value="${item.quantity}" type="number" min="1" onchange="handleQuantity('ádsdsdsd')"/>
+    if (headerListCart) {
+        headerListCart.innerHTML = `
+    <tr>
+        <td>Xoá</td>
+        <td>Hình ảnh</td>
+        <td>Sản phẩm</td>
+        <td>Giá</td>
+        <td>Số lượng</td>
+        <td>Tổng</td>
+    </tr>
+    `;
+    }
+
+    let htmls = item.map((item) => {
+        return `
+        <tr>
+        <td>
+            <a href="#" class=""><i onclick="deleteItem('${item.productID}')" class="ti-close"></i></a>
+        </td>
+        <td>
+            <img src="${item.image}" alt="" />
+        </td>
+        <td>
+            <h5>${item.productName}</h5>
+        </td>
+        <td>
+            <h5>${formatNumber(item.productPrice)}</h5>
+        </td>
+        <td>
+                <i onclick="decreaseItem('${item.productID}')" class="ti-minus quantity-decrease"></i>
+                <lable>${item.quantity}</label>
+                <i onclick="increaseItem('${item.productID}')" class="ti-plus quantity-increase"></i>
+        </td>
+        <td>
+            <h5>${formatNumber(item.total)}</h5>
+        </td>
+    </tr>
+        `;
+    });
+    if (listCart) {
+        listCart.innerHTML = htmls.join('');
+    }
+}
+let listCartItemInLocalStorage = JSON.parse(localStorage.getItem('listCartItem'));
+// console.log(listCartItemInLocalStorage.length);
+
+if (listCartItemInLocalStorage.length === 0) {
+    let listCart = document.querySelector('#cart-container');
+    if (listCart) {
+        listCart.innerHTML = `
+        <h3>Giỏ hàng trống!</h3>
+        `;
+    }
+} else {
+    getItemInLocalStorage(listCartItemInLocalStorage);
+}
+
+//Decrease Item
+function decreaseItem(productID) {
+    let listCartItemInLocalStorage = JSON.parse(localStorage.getItem('listCartItem'));
+    // console.log(listCartItemInLocalStorage);
+
+    // let listCartUpdate = listCartItemInLocalStorage.map((item) => {
+    //     if (productID != item.productID) {
+    //         return {
+    //             image: item.image,
+    //             productID: item.productID,
+    //             productName: item.productName,
+    //             productPrice: item.productPrice,
+    //             quantity: item.quantity,
+    //             total: item.total,
+    //         };
+    //     } else {
+    //         return {
+    //             image: item.image,
+    //             productID: item.productID,
+    //             productName: item.productName,
+    //             productPrice: item.productPrice,
+    //             quantity: item.quantity - 1,
+    //             total: item.total,
+    //         };
+    //     }
+    // });
+
+    listCartItemInLocalStorage.forEach((item) => {
+        if (productID == item.productID && item.quantity > 1) {
+            item.quantity -= 1;
+            item.total -= item.productPrice;
+            localStorage.setItem('localStorageAllItemPrice', parseInt(localStorage.getItem('localStorageAllItemPrice')) - item.productPrice);
+            location.reload();
+        }
+    });
+    // console.log(listCartItemInLocalStorage);
+    // let productListCartData = JSON.stringify(listCartUpdate);
+    localStorage.setItem(localStorageCartItemKey, JSON.stringify(listCartItemInLocalStorage));
+}
+
+//Increase Item
+function increaseItem(productID) {
+    let listCartItemInLocalStorage = JSON.parse(localStorage.getItem('listCartItem'));
+
+    listCartItemInLocalStorage.forEach((item) => {
+        if (productID == item.productID) {
+            item.quantity += 1;
+            item.total += item.productPrice;
+            localStorage.setItem('localStorageAllItemPrice', parseInt(localStorage.getItem('localStorageAllItemPrice')) + item.productPrice);
+            location.reload();
+        }
+    });
+    // console.log(listCartItemInLocalStorage);
+    localStorage.setItem(localStorageCartItemKey, JSON.stringify(listCartItemInLocalStorage));
+}
+
+//Delete Item
+function deleteItem(productID) {
+    let listCartItemInLocalStorage = JSON.parse(localStorage.getItem('listCartItem'));
+
+    listCartItemInLocalStorage.forEach((item, index, object) => {
+        if (productID == item.productID) {
+            object.splice(index, 1);
+            localStorage.setItem('localStorageAllItemPrice', parseInt(localStorage.getItem('localStorageAllItemPrice')) - item.productPrice * item.quantity);
+            location.reload();
+        }
+    });
+    // console.log(listCartItemInLocalStorage);
+
+    localStorage.setItem(localStorageCartItemKey, JSON.stringify(listCartItemInLocalStorage));
+}
+
+let btnPayment = document.querySelector('#content .btn-payment');
+if (btnPayment) {
+    btnPayment.addEventListener('click', (e) => {
+        alert('Thanh toán thành công!');
+        localStorage.removeItem('listCartItem');
+        window.location.href = '/index.html';
+        // location.reload();
+    });
+}
+
+function setAllItemPrice() {
+    const allItemPriceValue = parseInt(localStorage.getItem('localStorageAllItemPrice'));
+    // if (listCartItemInLocalStorage.length === 0) {
+    // allItemPriceValue = 0;
+    // }
+    let allItemPrice = document.querySelector('#content #cart-bottom .all-product-price');
+
+    if (allItemPrice) {
+        allItemPrice.innerHTML = `
+        <h6>Tổng</h6>
+        <p>${formatNumber(allItemPriceValue)}</p>
+        `;
+    }
+}
+setAllItemPrice();

@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
         <title>H3N1 Shop</title>
     </head>
     <body>
@@ -30,7 +31,7 @@
                         </a>
                         <ul class="subnav-product">
                             <li>
-                                <a href="#" class="set-minwidth product-fetch-api">
+                                <a href="#" class="set-minwidth">
                                     Tops
                                     <i class="nav-arrow-right ti-angle-right"></i>
                                 </a>
@@ -102,42 +103,12 @@
                         </div>
                     </a>
                 </div>
-
-                <!--  Button search -->
-                <!-- <div class="search-btn">
-                <input type="text" id="filter-input" class="filter-input" placeholder="Tìm kiếm">
-                <i class="search-icon ti-search"></i>
-            </div> -->
             </div>
-
-            <!-- <div id="slide"> -->
-            <!-- <div class="text-content">
-                <h2 class="text-heading">Hung Nguyen</h2>
-                <div class="text-description">dep trai</div>
-            </div> -->
-            <!-- </div> -->
-
             <div id="content">
                 <div class="content-section">
-                    <h2 class="section-heading">Tất cả sản phẩm</h2>
-                    <!-- filter -->
-                    <div class="filter">
-                        <label for="">Sắp xếp</label>
-                        <select name="choose-filter-type" class="choose-filter-type">
-                            <!-- <option value="low-to-high">Price: low to high</option>
-                        <option value="high-to-low">Price: high to low</option> -->
-                            <option value="all-product" selected="selected">Tất cả sản phẩm</option>
-                            <option value="low-to-high">Giá: thấp đến cao</option>
-                            <option value="high-to-low">Giá: cao đến thấp</option>
-                        </select>
-                        <!-- <div class="search-btn"> -->
-                        <input type="text" id="filter-input" class="filter-input" placeholder="Tìm kiếm" />
-                        <i class="search-icon ti-search"></i>
-                        <!-- </div> -->
-                    </div>
-
-                    <div class="product-list-main">
-                        <!-- <div class="product-item">
+                    <h2 class="section-heading">Giỏ hàng</h2>
+                    <!-- <div class="product-list-main"> -->
+                    <!-- <div class="product-item">
                         <img src="${product.image}" alt="product 4" class="product-img">
                         <p class="product-type">${product.productType}</p>
                         <p class="product-name">${product.productName}</p>
@@ -145,13 +116,70 @@
                         <button href="" class="btn-detail">Chi tiết</button>
                         <button href="" class="btn-add-to-cart">Thêm vào giỏ hàng</button>
                     </div> -->
-                        <!-- post product by JSON -->
+                    <!-- post product by JSON -->
+                    <!-- </div> -->
+                    <div id="cart-container" class="container cart-container my-5">
+                        <table width="100%">
+                            <thead>
+                                <!-- <tr>
+                                    <td>Xoá</td>
+                                    <td>Hình ảnh</td>
+                                    <td>Sản phẩm</td>
+                                    <td>Giá</td>
+                                    <td>Số lượng</td>
+                                    <td>Tổng</td>
+                                </tr> -->
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border: none">
+                                        <h3>Giỏ hàng trống!</h3>
+                                        <!-- <a href="#" class=""><i class="ti-close"></i></a> -->
+                                    </td>
+                                    <!-- <td>
+                                        <img src="" alt="Product image" />
+                                    </td>
+                                    <td>
+                                        <h5>Product name</h5>
+                                    </td>
+                                    <td>
+                                        <h5>Product price</h5>
+                                    </td>
+                                    <td>
+                                        <input class="w-25 pl-1" value="1" type="number" />
+                                    </td>
+                                    <td>
+                                        <h5>Total</h5>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="break-page">
-                        <button class="btn-global btn-back-page">back</button>
-                        <input type="button" value="1" class="first-page btn-global" name="break-page" />
-                        <input type="button" value="2" class="second-page btn-global" name="break-page" />
-                        <button class="btn-global btn-next-page">next</button>
+                    <div id="cart-bottom" class="container">
+                        <div class="row">
+                            <div class="coupon col-lg-6 col-md-6 col-12 mb-4">
+                                <div>
+                                    <h5>Mã giảm giá</h5>
+                                    <input type="text" placeholder="Nhập mã giảm giá" />
+                                    <button class="btn-global">Xác nhận</button>
+                                </div>
+                            </div>
+                            <div class="total col-lg-6 col-md-6 col-12">
+                                <div>
+                                    <h5>Tổng giỏ hàng</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <h6>Phí vận chuyển</h6>
+                                        <p>0 ₫</p>
+                                    </div>
+                                    <hr />
+                                    <div class="d-flex justify-content-between all-product-price">
+                                        <h6>Tổng</h6>
+                                        <p>0 ₫</p>
+                                    </div>
+                                    <button class="btn-global ml-auto btn-payment">Thanh toán</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="content-section">
@@ -182,62 +210,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- modal quick view -->
-        <!-- <div class="modal js-modal">
-        <div class="modal-container js-modal-container">
-            <div class="modal-close js-btn-close">
-                <button class="ti-close"></button>
-            </div>
-            <div class="modal-header">
-                Thông tin thanh toán
-            </div>
-            <div class="modal-body">
-                <table class="table-buynow">
-                    <thead class="table-buynow-header">
-                        <th>Sản phẩm</th>
-                        <th>Đơn giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                    </thead>
-                    <tbody class="table-buynow-body">
-                        <tr>
-                            <td>Miami vibes T-shirt / black pink dominant</td>
-                            <td>370000đ</td>
-                            <td>1</td>
-                            <td>370000đ</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="btn-payment">
-                    <a href="" class="btn-payment-orders js-payment-order">Thanh toán đơn hàng</a>
-                </div>
-            </div>
-        </div>
-    </div> -->
         <script src="./main.js"></script>
-        <!-- <script>
-        const btnBuys = document.querySelectorAll('.js-buynow')
-        const modal = document.querySelector('.js-modal')
-        const btnCloseModal = document.querySelector('.js-btn-close')
-        const modalContainer = document.querySelector('.js-modal-container')
-        function showBuyNow() {
-            modal.classList.add('open')
-        }
-
-        function hideBuyNow() {
-            modal.classList.remove('open')
-        }
-
-        for (const btnBuy of btnBuys) {
-            btnBuy.addEventListener('click', showBuyNow)
-        }
-
-        btnCloseModal.addEventListener('click', hideBuyNow)
-        modal.addEventListener('click', hideBuyNow)
-        modalContainer.addEventListener('click', function (event) {
-            event.stopPropagation()
-        })
-    </script> -->
     </body>
 </html>
