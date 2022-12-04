@@ -1,6 +1,6 @@
 let apiUser = 'http://localhost:3000/user';
 let apiProductList = 'http://localhost:3000/productList';
-let apiProductListTop = 'http://localhost:3000/productList?';
+let apiProductListTop = 'http://localhost:3000/productList?productType=%C3%81o%20thun&productType=%C3%81o%20Kho%C3%A1c&&productType=%C3%81o%20hoodie';
 let apiProductListPriceAsc = 'http://localhost:3000/productList?_sort=productPrice&_order=asc';
 let apiProductListPriceDesc = 'http://localhost:3000/productList?_sort=productPrice&_order=desc';
 let apiProductListNew = 'http://localhost:3000/productListNew';
@@ -223,13 +223,16 @@ fetch(apiProductList)
         }
     });
 
-// fetch(apiProductList)
-//     .then((res) => res.json())
-//     .then((json) => {
-//         for (let value of json) {
-//             addElements(gridProductMain, value);
-//         }
-//     });
+let gridProductTop = document.querySelector('.product-list-top');
+
+fetch(apiProductListTop)
+    .then((res) => res.json())
+    .then((json) => {
+        for (let value of json) {
+            addElements(gridProductTop, value);
+            console.log(value);
+        }
+    });
 
 if (chooseFilterType) {
     chooseFilterType.addEventListener('change', (e) => {

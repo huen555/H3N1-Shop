@@ -1,5 +1,8 @@
-json-server
 .vscode
 .history
 .prettierrc
 jwt
+
+node_modules
+db.json
+
