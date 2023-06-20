@@ -6,9 +6,11 @@ let apiProductListPriceDesc = 'http://localhost:3000/productList?_sort=productPr
 let apiProductListNew = 'http://localhost:3000/productListNew';
 let apiProductDetails = 'http://localhost:3000/productList?id=';
 
+localStorage.setItem('isLogin', 1);
+
 // Login, SignUp
 function login() {
-    getUser(handleLogin1);
+    getUser(handleLogin);
 }
 function getUser(callback) {
     fetch(apiUser).then(function (res) {
@@ -24,23 +26,23 @@ function getUser(callback) {
 //         .then((data) => console.log(data[]))
 //         .catch((err) => alert('Lỗi Server!'));
 // });
-function handleLogin1(data) {
-    let username = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
-    let checkLogin = data.some((data) => {
-        return data.username == username && data.password == password;
-        // return true;
-    });
+// function handleLogin(data) {
+//     let username = document.getElementById('username').value;
+//     let password = document.getElementById('password').value;
+//     let checkLogin = data.some((data) => {
+//         return data.username === username && data.password === password;
+//         // return true;
+//     });
 
-    console.log(checkLogin);
-    if (checkLogin) {
-        alert('Đăng nhập thành công, quay về trang chủ!');
-        localStorage.setItem('isLogin', 1);
-        window.location.href = '/index.html';
-    } else {
-        alert('Đăng nhập thất bại, nhập sai tên đăng nhập hoặc mật khẩu!');
-    }
-}
+//     console.log(checkLogin);
+//     if (checkLogin) {
+//         alert('Đăng nhập thành công, quay về trang chủ!');
+//         localStorage.setItem('isLogin', 1);
+//         window.location.href = '/index.html';
+//     } else {
+//         alert('Đăng nhập thất bại, nhập sai tên đăng nhập hoặc mật khẩu!');
+//     }
+// }
 
 function handleLogin(data) {
     let username = document.getElementById('username').value;
